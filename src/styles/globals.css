@@ -33,7 +33,6 @@ body {
   .main-content {
     margin-left: 0; /* No sidebar space on mobile */
     padding: 20px;
-    padding-left: 134px;
     width: 100%; /* <- ADD THIS LINE */
     box-sizing: border-box; /* <- ADD THIS LINE */
   }
