@@ -3,6 +3,8 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../lib/firebase";
 import ConfirmDialog from "./ConfirmDialog";
 import axios from "axios";
+import AttributeTable from "@/components/AttributeTable";
+import ImageGallery from "@/components/ImageGallery";
 
 export default function Events() {
   const [events, setEvents] = useState([]);
@@ -304,9 +306,28 @@ function AttributeDetail({ attribute, updateAttribute, goBack }) {
     <div>
       <button className="back-button" onClick={goBack}>← Back to Attributes</button>
       <h2>{attribute.name}</h2>
+<AttributeTable
+  columns={columns}
+  rows={rows}
+  updateCell={updateCell}
+  addRow={addRow}
+  addColumn={(newCol) => {
+    setColumns([...columns, newCol]);
+    const updatedRows = rows.map(row => ({ ...row, [newCol]: "" }));
+    setRows(updatedRows);
+    updateAttribute({ ...attribute, columns: [...columns, newCol], rows: updatedRows, gallery });
+  }}
+  deleteRow={deleteRow}
+  deleteColumn={deleteColumn}
+/>
 
+<ImageGallery
+  gallery={gallery}
+  handleGalleryUpload={handleGalleryUpload}
+  deleteGalleryImage={deleteGalleryImage}
+/>
       {/* Add Columns */}
-      <div className="column-input">
+      {/* <div className="column-input">
         <input
           type="text"
           placeholder="New column name"
@@ -314,9 +335,9 @@ function AttributeDetail({ attribute, updateAttribute, goBack }) {
           onChange={(e) => setNewColumn(e.target.value)}
         />
         <button className="add-column-btn"  onClick={addColumn}>Add Column</button>
-      </div>
+      </div> */}
 
-      {/* Table */}
+      {/* Table
       
       <table className="items-table">
         <thead>
@@ -373,10 +394,10 @@ function AttributeDetail({ attribute, updateAttribute, goBack }) {
         </tbody>
       </table>
 
-      <button className="add-column-btn"  onClick={addRow}>Add Row</button>
+      <button className="add-column-btn"  onClick={addRow}>Add Row</button> */}
 
       {/* Image Gallery */}
-     <div className="gallery-section">
+     {/* <div className="gallery-section">
   <h3>Image Gallery</h3>
 
   <div className="file-upload">
@@ -407,7 +428,7 @@ function AttributeDetail({ attribute, updateAttribute, goBack }) {
       </div>
     ))}
   </div>
-</div>
+</div> */}
 
 
       {/* Modal */}
